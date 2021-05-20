@@ -58,7 +58,7 @@ class MyGames
             while (gameOn)
             {
                 // Lógica del jugador 1
-                if (onTurn == 1)
+                if (onTurn == player1)
                 {
                     // Con la clase Dice, obtenemos un número random y se guarda en la variable roll.
                     roll = Dice.diceRoll();
@@ -81,7 +81,7 @@ class MyGames
                     gameOn = checkWinner(new_pos1, player1, new_pos2, player2, gameOn);
                         
                         // actualizamos la variable onTurn para permitir que juege el jugador 2;
-                        onTurn = 2;
+                        onTurn = player2;
                     }
                     // Si no hay ningún ganador, se imprimen los datos de juego del jugador 1 y se cambia de turno.
                     else
@@ -94,13 +94,13 @@ class MyGames
                     pos1 = new_pos1;
 
                     // actualizamos la variable onTurn para permitir que juege el jugador 2;
-                    onTurn = 2;
+                    onTurn = player2;
 
                     }
                 }
 
                 // Comienza lógica de jugdor 2 
-                else if(onTurn == 2)
+                else if(onTurn == player2)
                 {
                     // Se tira el dado
                     roll = Dice.diceRoll();
@@ -118,7 +118,7 @@ class MyGames
 
                         
                         // actualizamos la variable onTurn para permitir que juege el jugador 1 nuevamente;
-                        onTurn = 1; 
+                        onTurn = player1; 
                     }
                     // Si no hay ningún ganador, se imprimen datos de juego del jugador 2.
                     else{
@@ -129,7 +129,7 @@ class MyGames
                     pos2 = new_pos2;
 
                     // actualizamos la variable onTurn para permitir que juege el jugador 2;
-                    onTurn = 1;       
+                    onTurn = player1;       
 
                     // Se incrementa el contador de turnos
                     turnNum = turnNum + 1;
@@ -139,8 +139,6 @@ class MyGames
                     // Después de cada tiro se verifica si un jugador ya ganó.
                     gameOn = checkWinner(new_pos1, player1, new_pos2, player2, gameOn);
                     
-
-                 
 
                 }
 
@@ -159,8 +157,7 @@ class MyGames
             // siguientes condicionales.
             if (pos+roll >= 30)
             {
-                //cout << "-- Game Over --\n";
-                //cout << "Player " << player << "HOLA is the winner!!!\n";
+                
                 return pos+roll;
             }
             // Si el jugador cuando se mueve cae en una casilla "N", se retorna
