@@ -44,7 +44,7 @@ class MyGames
             // mientras no haya ganador, y el usuario no salga, que el juego continue
             while (gameOn)
             {
-
+                // Lógica del jugador 1
                 if (onTurn == 1)
                 {
                     roll = Dice.diceRoll();
@@ -54,8 +54,8 @@ class MyGames
                     // ganador
                     if (new_pos1 >= 30)
                     {
-                        gameOn = checkWinner(new_pos1, player1);
-                        cout << turnNum << " " << player1 << " " << 30 << " "  << roll << " " << board[pos1] << " "<< 30 << "\n";
+                        //gameOn = checkWinner(new_pos1, player1);
+                        cout << turnNum << " " << player1 << " " << pos1+1 << " "  << roll << " " << board[30] << " "<< new_pos1+1 << "\n";
                     }
                     else
                     {
@@ -70,7 +70,9 @@ class MyGames
                     onTurn = 2;
 
                     }
-                } 
+                }
+
+                // Comienza lógica de jugdor 2 
                 else if(onTurn == 2)
                 {
                     roll = Dice.diceRoll();
@@ -80,11 +82,11 @@ class MyGames
                     // ganador
                     if (new_pos2 >= 30)
                     {
-                        gameOn = checkWinner(new_pos2, player2);
-                        //cout << turnNum << " " << player2 << " " << 30 << " " << roll << " " << board[30] << " "<< 30 << "\n";
+                        //gameOn = checkWinner(new_pos2, player2);
+                        cout << turnNum << " " << player2 << " " << pos2+1 << " " << roll << " " << board[30] << " "<< new_pos2+1 << "\n";
 
                     }
-
+                    else{
                     cout << turnNum << " " << player2 << " " << pos2+1 << " " << roll << " " << board[pos2] << " "<< new_pos2+1 << "\n";
                     
 
@@ -99,6 +101,10 @@ class MyGames
 
                     // Anuncio para pasar al siguiente turno.
                     gameOn = announcement();
+                    }
+
+                    gameOn = checkWinner(new_pos1, player1);
+                    gameOn = checkWinner(new_pos2, player2);
 
                 }
 
@@ -117,8 +123,9 @@ class MyGames
             // siguientes condicionales.
             if (pos+roll >= 30)
             {
-                cout << "-- Game Over --\n";
-                cout << "Player " << player << " is the winner!!!\n";
+                //cout << "-- Game Over --\n";
+                //cout << "Player " << player << "HOLA is the winner!!!\n";
+                return pos+roll;
             }
             // Si el jugador cuando se mueve cae en una casilla "N", se retorna
             // el valor de esta casilla para imprimirse
