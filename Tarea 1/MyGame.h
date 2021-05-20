@@ -55,12 +55,15 @@ class MyGames
                     if (new_pos1 >= 30)
                     {
                         //gameOn = checkWinner(new_pos1, player1);
-                        cout << turnNum << " " << player1 << " " << pos1+1 << " "  << roll << " " << board[30] << " "<< new_pos1+1 << "\n";
+                        cout << turnNum << " " << player1 << " " << pos1+1 << " "  << roll << " " << board[29] << " "<< new_pos1+1 << "\n";
+
+                        // actualizamos la variable onTurn para permitir que juege el jugador 2;
+                        onTurn = 2;
                     }
                     else
                     {
 
-                    //gameOn = checkWinner(new_pos1, player1);
+                    
                     cout << turnNum << " " << player1 << " " << pos1+1 << " "  << roll << " " << board[pos1] << " "<< new_pos1+1 << "\n";
                     
                     // actualizamos posición anterior por la nueva posición
@@ -82,9 +85,12 @@ class MyGames
                     // ganador
                     if (new_pos2 >= 30)
                     {
-                        //gameOn = checkWinner(new_pos2, player2);
-                        cout << turnNum << " " << player2 << " " << pos2+1 << " " << roll << " " << board[30] << " "<< new_pos2+1 << "\n";
-
+                        
+                        cout << turnNum << " " << player2 << " " << pos2+1 << " " << roll << " " << board[29] << " "<< new_pos2+1 << "\n";
+                        
+                        
+                        // actualizamos la variable onTurn para permitir que juege el jugador 2;
+                        onTurn = 1; 
                     }
                     else{
                     cout << turnNum << " " << player2 << " " << pos2+1 << " " << roll << " " << board[pos2] << " "<< new_pos2+1 << "\n";
@@ -100,11 +106,14 @@ class MyGames
                     turnNum = turnNum + 1;
 
                     // Anuncio para pasar al siguiente turno.
-                    gameOn = announcement();
+                    //gameOn = announcement();
                     }
 
-                    gameOn = checkWinner(new_pos1, player1);
-                    gameOn = checkWinner(new_pos2, player2);
+                    // Después de cada tiro se verifica si un jugador ya ganó.
+                    gameOn = checkWinner(new_pos1, player1, new_pos2, player2, gameOn);
+                    
+
+                 
 
                 }
 
@@ -171,6 +180,7 @@ class MyGames
                 // anuncio al usuario
                 cout << "Press C to continue next turn, or E to end the game: ";
                 cin >> option;
+                
 
                  while (option != "C" && option != "E" && option != "c" && option != "e")
             {
@@ -194,19 +204,41 @@ class MyGames
         }
 
         // hacer función si hubo ya un ganador o no.
-        bool checkWinner(int pos, int player)
+        bool checkWinner(int pos1, int player1, int pos2, int player2, bool gameOn)
         {
-            // Si el jugador pasó de la casilla # 30, el juego termina y ha ganado
-            if (pos >= 30)
+
+            // Este primer condicional verifica que, si se interrumpe el juego no hubo ingún ganador.
+            if (!gameOn)
+            {
+                
+                return false;
+
+            }
+            else if (pos1 >= 30 && pos2 < 30)
             {
                 cout << "-- Game Over --\n";
-                cout << "Player " << player << " is the winner!!!\n";
+                cout << "Player " << player1 << " is the winner!!!\n";
                 return false;
             }
-            else 
+            else if(pos2 >= 30 && pos1 < 30)
             {
-                return true;
+                cout << "-- Game Over --\n";
+                cout << "Player " << player2 << " is the winner!!!\n";
+                return false;
             }
+            else if (pos1 >= 30 && pos2 >=30 && pos1 < pos2)
+            {
+                cout << "-- Game Over --\n";
+                cout << "Player " << player1 << " is the winner!!!\n";
+                return false;
+            }
+            else if (pos2 >= 30 && pos1 >=30 && pos2 < pos1)
+            {
+                cout << "-- Game Over --\n";
+                cout << "Player " << player2 << " is the winner!!!\n";
+                return false;
+
+            } else return true;
         }
 
 };
